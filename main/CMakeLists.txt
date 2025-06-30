@@ -2,4 +2,9 @@ idf_component_register(SRCS "main.cpp"
     "src/ps2_controller.cpp"
     "src/moveInfo.cpp"
     "src/uartTool.cpp"
-    INCLUDE_DIRS "include")
+    "vec/src/vector3f.cpp"
+    "vec/src/vector2f.cpp"
+    "vec/src/matrix2f.cpp"
+    "src/catchPoint.cpp"
+    INCLUDE_DIRS "include"
+        "vec/include")

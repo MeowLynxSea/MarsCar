@@ -28,8 +28,8 @@ WheelMoveInfo::WheelMoveInfo(std::string fl, std::string fr, std::string bl, std
     auto max = [](auto x, auto y)
     { return x > y ? x : y; };
 
-    double x = lx * 1.0 - 255.0 / 2;
-    double y = ly * 1.0 - 255.0 / 2;
+    double x = (lx * 1.0 - 255.0 / 2) / 127.5;
+    double y = ((255.0 - ly) * 1.0 - 255.0 / 2) / 127.5;
     double leftRatio, rightRatio;
     if (x < 0 && y > 0)
     {
@@ -58,9 +58,8 @@ WheelMoveInfo::WheelMoveInfo(std::string fl, std::string fr, std::string bl, std
             leftRatio = x + 2 * y;
     }
 
-    front_left.setInfo(fl, 1500 + leftRatio * MAX_WHEEL_SPEED, FRAME_TIME);
-    back_left.setInfo(fl, 1500 + leftRatio * MAX_WHEEL_SPEED, FRAME_TIME);
-
+    front_left.setInfo(fl, 1500 - leftRatio * MAX_WHEEL_SPEED, FRAME_TIME);
+    back_left.setInfo(bl, 1500 - leftRatio * MAX_WHEEL_SPEED, FRAME_TIME);
     front_right.setInfo(fr, 1500 + rightRatio * MAX_WHEEL_SPEED, FRAME_TIME);
     back_right.setInfo(br, 1500 + rightRatio * MAX_WHEEL_SPEED, FRAME_TIME);
 }
@@ -71,6 +70,26 @@ std::string WheelMoveInfo::getWheelInfo()
 }
 
 //==================底盘舵机============//
+
+SteerMoveInfo::SteerMoveInfo(std::string fl, std::string fr, std::string bl, std::string br, int rx, int ry)
+{
+
+    auto abs = [](auto x)
+    { return x > 0 ? x : -x; };
+    auto max = [](auto x, auto y)
+    { return x > y ? x : y; };
+    auto clamp = [](auto x)
+    {if(x<-1)return -1.0;else if(x>1)return 1.0;else return x; };
+    double x = (rx * 1.0 - 255.0 / 2) / 127.5;
+    double y = ((255.0 - ry) * 1.0 - 255.0 / 2) / 127.5;
+    double frontRatio = clamp(x*1.0 - y*1.0);
+    double backRatio = -y;
+
+    front_left.setInfo(fl, 1500 + frontRatio * MAX_STEER_PWM, FRAME_TIME);
+    back_left.setInfo(bl, 1500 + backRatio * MAX_STEER_PWM, FRAME_TIME);
+    front_right.setInfo(fr, 1500 + frontRatio * MAX_STEER_PWM, FRAME_TIME);
+    back_right.setInfo(br, 1500 + backRatio * MAX_STEER_PWM, FRAME_TIME);
+}
 std::string SteerMoveInfo::getSteerInfo()
 {
     std::string result = front_left.getInfo() + front_right.getInfo() + back_left.getInfo() + back_right.getInfo();

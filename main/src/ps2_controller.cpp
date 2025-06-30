@@ -38,6 +38,7 @@ PS2Controller::PS2Controller(gpio_num_t dat_pin, gpio_num_t cmd_pin,
     controller_type = 0;
     en_Rumble = false;
     en_Pressures = false;
+    printf("ps2初始化！");
 }
 uint8_t PS2Controller::sendAndReceive(uint8_t const &byte) const
 {
@@ -230,9 +231,9 @@ void PS2Controller::ps2Task()
     int error = config(true, true);
     if (error) {
         printf("Error configuring controller\n");
-        while (1) {
-            vTaskDelay(1000 / portTICK_PERIOD_MS);
-        }
+        //while (1) {
+        //    vTaskDelay(1000 / portTICK_PERIOD_MS);
+        //}
     }
     
     printf("Found Controller, configured successful\n");
@@ -261,6 +262,7 @@ void PS2Controller::ps2Task()
         }
         
         // 打印按钮状态
+        /*
         if (Button(BUTTON_SELECT)) printf("SELECT pressed\n");
         if (Button(BUTTON_START)) printf("START pressed\n");
         if (Button(BUTTON_PAD_UP)) printf("UP pressed\n");
@@ -275,14 +277,15 @@ void PS2Controller::ps2Task()
         if (Button(BUTTON_R1)) printf("R1 pressed\n");
         if (Button(BUTTON_L2)) printf("L2 pressed\n");
         if (Button(BUTTON_R2)) printf("R2 pressed\n");
-        
+        */
         // 模拟摇杆值
+        /*
         if (en_Pressures) {
             printf("LX: %d, LY: %d, RX: %d, RY: %d\n",
                    data[LX], data[LY], 
                    data[RX], data[RY]);
         }
-        
+        */
         vTaskDelay(READ_DELAY_MS / portTICK_PERIOD_MS);
     }
     

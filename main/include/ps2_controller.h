@@ -22,10 +22,10 @@
 #define BUTTON_CROSS 0x4000
 #define BUTTON_SQUARE 0x8000
 
-#define LX 5
-#define LY 6
-#define RX 7
-#define RY 8
+#define LX 7
+#define LY 8
+#define RX 5
+#define RY 6
 
 #include <stdio.h>
 #include "driver/gpio.h"
@@ -36,22 +36,24 @@ public:
     PS2Controller(gpio_num_t dat_pin, gpio_num_t cmd_pin, gpio_num_t sel_pin, gpio_num_t clk_pin);
     ~PS2Controller() = default;
 
-    int getLx(){return data[LX];}
-    int getLy(){return data[LY];}
-    int getRx(){return data[RX];}
-    int getRy(){return data[RY];}
-    void launch();
-    
-private:
+    int getLx() { return data[LX]; }
+    int getLy() { return data[LY]; }
+    int getRx() { return data[RX]; }
+    int getRy() { return data[RY]; }
+    uint8_t *getData() { return data; }
 
+    bool ButtonPressed(uint16_t button) const;
+    bool Button(uint16_t button) const;
+    bool updateStatic();
+    void launch();
+
+private:
     uint8_t sendAndReceive(uint8_t const &byte) const;
     bool readState(bool motor1, uint8_t motor2);
     int config(bool pressures, bool rumble);
     void reconfig();
     void sendCommandString(uint8_t *cmd, int length) const;
-    bool Button(uint16_t button) const;
     bool NewButtonState(uint16_t button) const;
-    bool ButtonPressed(uint16_t button) const;
     bool ButtonReleased(uint16_t button) const;
 
     void ps2Task();

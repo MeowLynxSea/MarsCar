@@ -42,7 +42,7 @@ public:
     SteerMoveInfo(std::string fl, int pwm_fl, int t_fl, std::string fr, int pwm_fr, int t_fr,
                   std::string bl, int pwm_bl, int t_bl, std::string br, int pwm_br, int t_br)
         : front_left(fl, pwm_fl, t_fl), front_right(fr, pwm_fr, t_fr),
-          back_left(bl, pwm_bl, t_bl), back_right(fl, pwm_br, t_br) {};
+          back_left(bl, pwm_bl, t_bl), back_right(fl, pwm_br, t_br){};
     ~SteerMoveInfo() = default;
 
     std::string getSteerInfo();
