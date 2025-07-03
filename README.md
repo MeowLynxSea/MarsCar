@@ -39,7 +39,7 @@ MarsCar 是一个基于 ESP32 的火星车项目，带有一个机械臂，可�
   * **视频播放**: `media_kit` (RTSP 协议)
   * **状态管理**: `provider`
   * **图表**: `fl_chart`
-
+  *  **App**: [下载](https://cloud.meowdream.cn/)
 ## 🚀 如何开始
 
 ### **硬件要求**
