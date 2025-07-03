@@ -65,3 +65,7 @@ MarsCar 是一个基于 ESP32 的火星车项目，带有一个机械臂，可�
 ## 协议
 
 本项目基于 Apache-2.0 协议。详情请见 [LICENSE](https://www.google.com/search?q=rain-kotsuzui/marscar/MarsCar-979f33becefb45504f5706dfb15daa39fc480306/managed_components/espressif__servo/license.txt) 文件。
+
+## 友链
+
+[flutter项目地址](https://git.meowdream.cn/MeowLynxSea/MarsCarController)
