@@ -38,7 +38,7 @@ public:
     double angleWithX()
     {
         double angle = std::atan2(e[1], e[0]);
-        if (angle < 0)
+        if (angle < -PI/2)
             angle += 2 * PI;
         return angle;
     }

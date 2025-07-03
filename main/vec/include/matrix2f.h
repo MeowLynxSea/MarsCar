@@ -13,7 +13,7 @@ public:
     float &operator()(int i, int j);
 
     float determinant();
-    Matrix2f inverse(int &error,float epsilon = EPS);
+    Matrix2f inverse(int &error,float epsilon = EPSSILON);
 
     void print();
 

@@ -44,9 +44,8 @@ public:
 
     bool ButtonPressed(uint16_t button) const;
     bool Button(uint16_t button) const;
-    bool updateStatic();
     void launch();
-
+    
 private:
     uint8_t sendAndReceive(uint8_t const &byte) const;
     bool readState(bool motor1, uint8_t motor2);

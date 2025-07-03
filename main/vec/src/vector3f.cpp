@@ -115,7 +115,7 @@ Vector3f Vector3f::normalized() const
 }
 void Vector3f::print() const
 {
-    printf("< %.4f, %.4f, %.4f >\n",
+    printf("< %.4f, %.4f, %.4f > ",
            e[0], e[1], e[2]);
 }
 
@@ -196,7 +196,7 @@ Vector3f operator/(const Vector3f &v, float f)
 
 bool operator==(const Vector3f &v0, const Vector3f &v1)
 {
-    return (v0 - v1).length() < EPS;
+    return (v0 - v1).length() < EPSSILON;
 }
 
 bool operator!=(const Vector3f &v0, const Vector3f &v1)

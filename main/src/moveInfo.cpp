@@ -27,9 +27,11 @@ WheelMoveInfo::WheelMoveInfo(std::string fl, std::string fr, std::string bl, std
     { return x > 0 ? x : -x; };
     auto max = [](auto x, auto y)
     { return x > y ? x : y; };
+    auto test = [](auto x)
+    {if(x>1.0||x<-1.0)return 0.0;return x; };
 
-    double x = (lx * 1.0 - 255.0 / 2) / 127.5;
-    double y = ((255.0 - ly) * 1.0 - 255.0 / 2) / 127.5;
+    double x = test((lx * 1.0 - 255.0 / 2) / 127.5);
+    double y = test(((255.0 - ly) * 1.0 - 255.0 / 2) / 127.5);
     double leftRatio, rightRatio;
     if (x < 0 && y > 0)
     {
@@ -82,13 +84,14 @@ SteerMoveInfo::SteerMoveInfo(std::string fl, std::string fr, std::string bl, std
     {if(x<-1)return -1.0;else if(x>1)return 1.0;else return x; };
     double x = (rx * 1.0 - 255.0 / 2) / 127.5;
     double y = ((255.0 - ry) * 1.0 - 255.0 / 2) / 127.5;
-    double frontRatio = clamp(x*1.0 - y*1.0);
-    double backRatio = -y;
 
-    front_left.setInfo(fl, 1500 + frontRatio * MAX_STEER_PWM, FRAME_TIME);
-    back_left.setInfo(bl, 1500 + backRatio * MAX_STEER_PWM, FRAME_TIME);
-    front_right.setInfo(fr, 1500 + frontRatio * MAX_STEER_PWM, FRAME_TIME);
-    back_right.setInfo(br, 1500 + backRatio * MAX_STEER_PWM, FRAME_TIME);
+    double frontRatio = clamp(x * 1.0 - y * 1.0);
+    double backRatio = clamp(-x * 1.0 - y * 1.0);
+
+    front_left.setInfo(fl, 1450 + frontRatio * MAX_STEER_PWM, MAX_WHEEL_STEER_SPEED);
+    back_left.setInfo(bl, 1500 + backRatio * MAX_STEER_PWM, MAX_WHEEL_STEER_SPEED);
+    front_right.setInfo(fr, 1500 + frontRatio * MAX_STEER_PWM, MAX_WHEEL_STEER_SPEED);
+    back_right.setInfo(br, 1600 + backRatio * MAX_STEER_PWM, MAX_WHEEL_STEER_SPEED);
 }
 std::string SteerMoveInfo::getSteerInfo()
 {

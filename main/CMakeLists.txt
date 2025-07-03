@@ -6,5 +6,6 @@ idf_component_register(SRCS "main.cpp"
     "vec/src/vector2f.cpp"
     "vec/src/matrix2f.cpp"
     "src/catchPoint.cpp"
+    "src/wifiServer.cpp"
     INCLUDE_DIRS "include"
         "vec/include")

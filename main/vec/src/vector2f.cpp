@@ -91,7 +91,7 @@ Vector2f Vector2f::normalized() const
 }
 void Vector2f::print() const
 {
-    printf("< %.4f, %.4f >\n",
+    printf("< %.4f, %.4f > ",
            e[0], e[1]);
 }
 
@@ -169,7 +169,7 @@ Vector2f operator/(const Vector2f &v, float f)
 
 bool operator==(const Vector2f &v0, const Vector2f &v1)
 {
-	return (v0-v1).length()<EPS;
+	return (v0-v1).length()<EPSSILON;
 }
 
 bool operator!=(const Vector2f &v0, const Vector2f &v1)
